@@ -76,7 +76,7 @@ func DecryptPacket(data []byte) ([]byte, error) {
 		return nil, fmt.Errorf("Invalid Block Size (Reply packet)")
 	}
 
-	var PacketBlocksEnd []int // Map int[start] -> int [end]
+	var PacketBlocksEnd []int
 
 	BuffSize += 24
 
@@ -122,9 +122,9 @@ func InitCryptoCore(ClientKey string) PlatformCrypto {
 	//uint8_t m_xorKey[16];
 	//uint8_t m_hashKey[16];
 
-	RC4Key := buff[1 : 1+32]
-	xorKey := buff[33 : 33+16]
-	hashKey := buff[49 : 49+16]
+	RC4Key := buff[1 : 33]
+	xorKey := buff[33 : 49]
+	hashKey := buff[49 : 65]
 
 	return PlatformCrypto{
 		RC4Key:    RC4Key,
